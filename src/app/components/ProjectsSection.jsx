@@ -4,6 +4,9 @@ import ProjectCard from "./ProjectCard";
 import ProjectTag from "./ProjectTag";
 import { motion, useInView } from "framer-motion";
 
+
+//ici tu dois t'occuper des projets que tu as en place
+
 const projectsData = [
   {
     id: 1,
@@ -93,12 +96,12 @@ const ProjectsSection = () => {
         />
         <ProjectTag
           onClick={handleTagChange}
-          name="Web"
+          name="Openclassrooms"
           isSelected={tag === "Web"}
         />
         <ProjectTag
           onClick={handleTagChange}
-          name="Mobile"
+          name="Personnel"
           isSelected={tag === "Mobile"}
         />
       </div>

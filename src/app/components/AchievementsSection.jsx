@@ -3,30 +3,28 @@ import React from "react";
 import dynamic from "next/dynamic";
 
 const AnimatedNumbers = dynamic(
-  () => {
-    return import("react-animated-numbers");
-  },
+  () => import("react-animated-numbers"),
   { ssr: false }
-);
+);   //lui il fout la merde
 
 const achievementsList = [
   {
     metric: "Projects",
-    value: "40",
+    value: 40,
     postfix: "+",
   },
   {
     prefix: "~",
     metric: "Users",
-    value: "100",
+    value: 100,
   },
   {
     metric: "Awards",
-    value: "1",
+    value: 1,
   },
   {
     metric: "Years",
-    value: "2",
+    value: 2,
   },
 ];
 
@@ -42,20 +40,25 @@ const AchievementsSection = () => {
             >
               <h2 className="text-white text-4xl font-bold flex flex-row">
                 {achievement.prefix}
+              <span className="text-white text-4xl font-bold">{achievement.value}</span>
+                {achievement.postfix}
+{/* 
                 <AnimatedNumbers
                   includeComma
                   animateToNumber={parseInt(achievement.value)}
-                  locale="en-US"
+                  locale="fr-FR"
                   className="text-white text-4xl font-bold"
                   configs={(_, index) => {
-                    return {
+                    const animatedValue = parseInt(achievement.value);
+                    console.error("Config for index", index, ":", animatedValue);
+                    return {                      
                       mass: 1,
                       friction: 100,
                       tensions: 140 * (index + 1),
                     };
                   }}
                 />
-                {achievement.postfix}
+                {achievement.postfix} */}
               </h2>
               <p className="text-[#ADB7BE] text-base">{achievement.metric}</p>
             </div>
