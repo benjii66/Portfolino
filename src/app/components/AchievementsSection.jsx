@@ -1,4 +1,4 @@
-import { useClient } from "use-client"; // Importe useClient pour marquer le composant comme côté client
+"use client";
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { getGitHubStats } from "../api/GithubStats";
@@ -74,5 +74,4 @@ const AchievementsSection = () => {
     </div>
   );
 };
-
-export default useClient(AchievementsSection); // Enveloppe AchievementsSection avec useClient pour le rendre côté client
+export default AchievementsSection;

@@ -1,7 +1,15 @@
 import { Octokit } from "@octokit/rest";
 
+const githubAuthToken = "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";
+
 export async function getGitHubStats(username) {
-  const octokit = new Octokit();
+  const octokit = new Octokit({
+    // auth: process.env.GITHUB_AUTH_TOKEN
+    auth: githubAuthToken
+  });
+
+  console.log("GitHub Octokit instance created with authentication token:", octokit.auth);
+
 
   try {
     const response = await octokit.rest.users.getByUsername({
@@ -13,40 +21,47 @@ export async function getGitHubStats(username) {
     const reposResponse = await octokit.rest.repos.listForUser({
       username,
     });
-    const totalCommits = reposResponse.data.reduce(
-      (acc, repo) => acc + repo.commits,
-      0
-    );
 
-    const languages = await Promise.all( reposResponse.data.map(async (repo) => {
-      const repoLanguagesResponse = await octokit.rest.repos.listLanguages({
+    let totalCommits = 0;
+    for (const repo of reposResponse.data) {
+      const commitsResponse = await octokit.rest.repos.listCommits({
         owner: username,
         repo: repo.name,
       });
-      return repoLanguagesResponse.data;
-    })
-  );
-  const languageCounts = {};
-  languages.forEach((repoLanguages) => {
-    for (const lang in repoLanguages) {
-      languageCounts[lang] = (languageCounts[lang] || 0) + repoLanguages[lang];
+      totalCommits += commitsResponse.data.length;
     }
-  });
-  const mostUsedLanguage = Object.keys(languageCounts).reduce(
-    (a, b) => (languageCounts[a] > languageCounts[b] ? a : b)
-  );
 
-  return {
-    publicReposCount,
-    totalCommits,
-    mostUsedLanguage,
-  };
-} catch (error) {
-  console.error("Error fetching GitHub data:", error.message);
-  return {
-    publicReposCount: 0,
-    totalCommits: 0,
-    mostUsedLanguage: "",
-  };
-}
+    const languages = await Promise.all(
+      reposResponse.data.map(async (repo) => {
+        const repoLanguagesResponse = await octokit.rest.repos.listLanguages({
+          owner: username,
+          repo: repo.name,
+        });
+        return repoLanguagesResponse.data;
+      })
+    );
+
+    const languageCounts = {};
+    languages.forEach((repoLanguages) => {
+      for (const lang in repoLanguages) {
+        languageCounts[lang] = (languageCounts[lang] || 0) + repoLanguages[lang];
+      }
+    });
+    const mostUsedLanguage = Object.keys(languageCounts).reduce(
+      (a, b) => (languageCounts[a] > languageCounts[b] ? a : b)
+    );
+
+    return {
+      publicReposCount,
+      totalCommits,
+      mostUsedLanguage,
+    };
+  } catch (error) {
+    console.error("Error fetching GitHub data:", error.message);
+    return {
+      publicReposCount: 0,
+      totalCommits: 0,
+      mostUsedLanguage: "",
+    };
+  }
 }
