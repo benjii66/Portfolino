@@ -14,7 +14,7 @@ const projectsData = [
     description: "Project 1 description",
     image: "/images/projects/1.png",
     alt: "Project 1",
-    tag: ["All", "OpenClassrooms"],
+    tag: ["All", "OpenClassrooms", "Frontend"],
     gitUrl: "/",
     previewUrl: "/",
   },
@@ -23,7 +23,7 @@ const projectsData = [
     title: "Potography Portfolio Website",
     description: "Project 2 description",
     image: "/images/projects/2.png",
-    tag: ["All", "OpenClassrooms"],
+    tag: ["All", "OpenClassrooms", "Backend"],
     gitUrl: "/",
     previewUrl: "/",
   },
@@ -32,7 +32,7 @@ const projectsData = [
     title: "E-commerce Application",
     description: "Project 3 description",
     image: "/images/projects/3.png",
-    tag: ["All", "OpenClassrooms"],
+    tag: ["All", "OpenClassrooms", "Frontend"],
     gitUrl: "/",
     previewUrl: "/",
   },
@@ -41,7 +41,7 @@ const projectsData = [
     title: "Food Ordering Application",
     description: "Project 4 description",
     image: "/images/projects/4.png",
-    tag: ["All", "Personnel"],
+    tag: ["All", "Personnel", "Frontend"],
     gitUrl: "/",
     previewUrl: "/",
   },
@@ -50,7 +50,7 @@ const projectsData = [
     title: "React Firebase Template",
     description: "Authentication and CRUD operations",
     image: "/images/projects/5.png",
-    tag: ["All", "OpenClassrooms"],
+    tag: ["All", "OpenClassrooms", "Backend"],
     gitUrl: "/",
     previewUrl: "/",
   },
@@ -59,7 +59,7 @@ const projectsData = [
     title: "Full-stack Roadmap",
     description: "Project 5 description",
     image: "/images/projects/6.png",
-    tag: ["All", "Personnel"],
+    tag: ["All", "Personnel", "Backend"],
     gitUrl: "/",
     previewUrl: "/",
   },
@@ -67,15 +67,25 @@ const projectsData = [
 
 const ProjectsSection = () => {
   const [tag, setTag] = useState("All");
+  const [subTag, setSubTag] = useState(null);
+
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
   const handleTagChange = (newTag) => {
     setTag(newTag);
+    if(newTag === "All") setSubTag(null);
+    if(newTag === "OpenClassrooms") setSubTag(null);
+    if(newTag === "Personnel") setSubTag(null);
+
+  };
+
+  const handleSubTagChange = (newSubTag) => {
+    setSubTag(newSubTag);
   };
 
   const filteredProjects = projectsData.filter((project) =>
-    project.tag.includes(tag)
+    project.tag.includes(tag) && (subTag ? project.tag.includes(subTag) : true)
   );
 
   const cardVariants = {
@@ -104,7 +114,22 @@ const ProjectsSection = () => {
           name="Personnel"
           isSelected={tag === "Personnel"}
         />
+        
       </div>
+      <div className="flex flex-row justify-center items-center gap-2 py-2">
+      <button
+        className={`tag-btn ${subTag === "Frontend" ? "selected" : ""}`}
+        onClick={() => handleSubTagChange(subTag !== "Frontend" ? "Frontend" : null)}
+      >
+        Frontend
+      </button>
+      <button
+        className={`tag-btn ${subTag === "Backend" ? "selected" : ""}`}
+        onClick={() => handleSubTagChange(subTag !== "Backend" ? "Backend" : null)}
+      >
+        Backend
+      </button>
+    </div>
       <ul ref={ref} className="grid md:grid-cols-3 gap-8 md:gap-12">
         {filteredProjects.map((project, index) => (
           <motion.li
