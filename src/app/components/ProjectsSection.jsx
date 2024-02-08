@@ -103,32 +103,40 @@ const ProjectsSection = () => {
           onClick={handleTagChange}
           name="All"
           isSelected={tag === "All"}
+          selectedColor={"text-white border-blue-400"}
+          unSelectedColor={"text-[#ADB7BE] border-slate-600 hover:border-white"}
         />
         <ProjectTag
           onClick={handleTagChange}
           name="OpenClassrooms"
           isSelected={tag === "OpenClassrooms"}
+          selectedColor={"text-white border-blue-400"}
+          unSelectedColor={"text-[#ADB7BE] border-slate-600 hover:border-white"}
         />
         <ProjectTag
           onClick={handleTagChange}
           name="Personnel"
           isSelected={tag === "Personnel"}
+          selectedColor={"text-white border-blue-400"}
+          unSelectedColor={"text-[#ADB7BE] border-slate-600 hover:border-white"}
         />
         
       </div>
-      <div className="flex flex-row justify-center items-center gap-2 py-2">
-      <button
-        className={`tag-btn ${subTag === "Frontend" ? "selected" : ""}`}
-        onClick={() => handleSubTagChange(subTag !== "Frontend" ? "Frontend" : null)}
-      >
-        Frontend
-      </button>
-      <button
-        className={`tag-btn ${subTag === "Backend" ? "selected" : ""}`}
-        onClick={() => handleSubTagChange(subTag !== "Backend" ? "Backend" : null)}
-      >
-        Backend
-      </button>
+      <div className="text-white flex flex-row justify-center items-center gap-2 py-6">
+      <ProjectTag
+          onClick={handleSubTagChange}
+          name="Frontend"
+          isSelected={subTag === "Frontend"}
+          selectedColor={"text-white border-yellow-300"}
+          unSelectedColor={"text-[#ADB7BE] border-slate-600 hover:border-white"}
+      />
+        <ProjectTag
+          onClick={handleSubTagChange}
+          name="Backend"
+          isSelected={subTag === "Backend"}
+          selectedColor={"text-white border-yellow-300"}
+          unSelectedColor={"text-[#ADB7BE] border-slate-600 hover:border-white"}
+      />
     </div>
       <ul ref={ref} className="grid md:grid-cols-3 gap-8 md:gap-12">
         {filteredProjects.map((project, index) => (
