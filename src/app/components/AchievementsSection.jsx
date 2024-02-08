@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { getGitHubStats } from "../api/GithubStats";
+import { BestStreak } from "../api/GraphMetrics";
 
 const AnimatedNumbers = dynamic(
   () => import("react-animated-numbers"),
@@ -12,6 +13,7 @@ const AchievementsSection = () => {
   const [publicReposCount, setPublicReposCount] = useState(0);
   const [totalCommits, setTotalCommits] = useState(0);
   const [mostUsedLanguage, setMostUsedLanguage] = useState("");
+  const [longestStreak, setLongestStreak] = useState(0);
 
   useEffect(() => {
     async function fetchStats() {
@@ -19,6 +21,12 @@ const AchievementsSection = () => {
       setPublicReposCount(publicReposCount);
       setTotalCommits(totalCommits);
       setMostUsedLanguage(mostUsedLanguage);
+      try {
+        const totalStreak = await BestStreak("benjii66");
+        setLongestStreak(totalStreak);
+      } catch(error) {
+        console.error("Error fetching longest contribution days:", error.message);
+      }
     }
     fetchStats();
   }, []);
@@ -35,12 +43,12 @@ const AchievementsSection = () => {
       postfix: "+",
     },
     {
-      metric: "Most Used Language",
+      metric: "Most Used",
       value: mostUsedLanguage,
     },
     {
-      metric: "Awards",
-      value: 1,
+      metric: "Days Streak",
+      value: longestStreak,
     },
     {
       metric: "Years",

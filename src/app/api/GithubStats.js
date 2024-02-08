@@ -8,7 +8,6 @@ export async function getGitHubStats(username) {
     auth: githubAuthToken
   });
 
-  console.log("GitHub Octokit instance created with authentication token:", octokit.auth);
 
 
   try {
