@@ -18,9 +18,11 @@ const AchievementsSection = () => {
   useEffect(() => {
     async function fetchStats() {
       const { publicReposCount, totalCommits, mostUsedLanguage } = await getGitHubStats("benjii66");
+
       setPublicReposCount(publicReposCount);
       setTotalCommits(totalCommits);
       setMostUsedLanguage(mostUsedLanguage);
+      
       try {
         const totalStreak = await BestStreak("benjii66");
         setLongestStreak(totalStreak);
@@ -44,7 +46,7 @@ const AchievementsSection = () => {
     },
     {
       metric: "Most Used",
-      value: mostUsedLanguage,
+      value: "JS",
     },
     {
       metric: "Days Streak",

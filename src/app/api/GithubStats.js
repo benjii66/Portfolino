@@ -1,11 +1,10 @@
 import { Octokit } from "@octokit/rest";
 
-const githubAuthToken = "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";
+const githubAuthToken = "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";
 
 export async function getGitHubStats(username) {
   const octokit = new Octokit({
-    // auth: process.env.GITHUB_AUTH_TOKEN
-    auth: githubAuthToken
+    auth: process.env.NEXT_PUBLIC_GITHUB_AUTH_TOKEN,
   });
 
 

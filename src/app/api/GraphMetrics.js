@@ -1,10 +1,9 @@
-// GraphMetrics.js
 import { graphql } from "@octokit/graphql";
+
 
 const graphqlWithAuth = graphql.defaults({
   headers: {
-    authorization: `token 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`,
-    // authorization: process.env.GITHUB_AUTH_TOKEN,
+    authorization: `token ${process.env.NEXT_PUBLIC_GITHUB_AUTH_TOKEN}`,
   },
 });
 
