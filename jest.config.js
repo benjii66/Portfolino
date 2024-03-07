@@ -3,7 +3,7 @@ module.exports = {
     testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
     testEnvironment: 'jsdom',
     transform: {
-      '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { configFile: '../babel.config.js' }],
+      '^.+\\.(t|j)sx?$': ['@swc/jest'],
     },
   };
   
