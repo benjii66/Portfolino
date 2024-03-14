@@ -2,6 +2,7 @@
 import React, { useTransition, useState } from "react";
 import Image from "next/image";
 import TabButton from "./TabButton";
+import certifications from "./Certifications";
 
 const TAB_DATA = [
   {
@@ -9,12 +10,10 @@ const TAB_DATA = [
     id: "skills",
     content: (
       <ul className="list-disc pl-2">
-        <li>Node.js</li>
-        <li>Express</li>
         <li>MySQL</li>
-        <li>Three.js</li>
         <li>JavaScript</li>
-        <li>React</li>
+        <li>React.JS</li>
+        <li>Next.JS</li>
       </ul>
     ),
   },
@@ -23,19 +22,27 @@ const TAB_DATA = [
     id: "education",
     content: (
       <ul className="list-disc pl-2">
-        <li>Objectif3D</li>
-        <li>OpenClassrooms</li>
+        <li><a href="https://www.objectif3d.com/bachelor-gameplay-programming/">Objectif3D</a></li>
+        <li><a href="https://openclassrooms.com/fr/">OpenClassrooms</a></li>
       </ul>
     ),
   },
   {
     title: "Certifications",
     id: "certifications",
-    content: (
-      <ul className="list-disc pl-2">
-       <li>Oui la certif</li>
-      </ul>
-    ),
+      content: (
+        <div>
+          <ul className="list-disc pl-2">
+            {certifications.map((certifications, index) => (
+              <li key={index}>
+                <a href={certifications.link} target="_blank" rel="noopener noreferrer">
+                  {certifications.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ),
   },
 ];
 
