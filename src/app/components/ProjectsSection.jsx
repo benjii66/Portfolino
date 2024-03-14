@@ -17,15 +17,17 @@ const projectsData = [
     tag: ["All", "OpenClassrooms", "Frontend"],
     gitUrl: "/",
     previewUrl: "/",
+    tooltipContent: "React, HTML,CSS"
   },
   {
     id: 2,
-    title: "Potography Portfolio Website",
+    title: "Photography Portfolio Website",
     description: "Project 2 description",
     image: "/images/projects/2.png",
     tag: ["All", "OpenClassrooms", "Backend"],
     gitUrl: "/",
     previewUrl: "/",
+    tooltipContent: "React, HTML,CSS"
   },
   {
     id: 3,
@@ -35,6 +37,7 @@ const projectsData = [
     tag: ["All", "OpenClassrooms", "Frontend"],
     gitUrl: "/",
     previewUrl: "/",
+    tooltipContent: "React, HTML,CSS"
   },
   {
     id: 4,
@@ -44,6 +47,7 @@ const projectsData = [
     tag: ["All", "Personnel", "Frontend"],
     gitUrl: "/",
     previewUrl: "/",
+    tooltipContent: "React, HTML,CSS"
   },
   {
     id: 5,
@@ -53,6 +57,7 @@ const projectsData = [
     tag: ["All", "OpenClassrooms", "Backend"],
     gitUrl: "/",
     previewUrl: "/",
+    tooltipContent: "React, HTML,CSS"
   },
   {
     id: 6,
@@ -62,6 +67,7 @@ const projectsData = [
     tag: ["All", "Personnel", "Backend"],
     gitUrl: "/",
     previewUrl: "/",
+    tooltipContent: "React, HTML,CSS"
   },
 ];
 
@@ -154,6 +160,7 @@ const ProjectsSection = () => {
               imgUrl={project.image}
               gitUrl={project.gitUrl}
               previewUrl={project.previewUrl}
+              tooltipContent= {project.tooltipContent}
             />
           </motion.li>
         ))}
